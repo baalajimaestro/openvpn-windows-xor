@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: source build vars and download openvpn source
       run: source ~/work/openvpn-windows-xor/openvpn-windows-xor/generic/build.vars && echo ${OPENVPN_VERSION} && echo ${OPENVPN_URL} && mkdir ~/work/openvpn-windows-xor/openvpn-windows-xor/generic/sources && cd ~/work/openvpn-windows-xor/openvpn-windows-xor/generic/sources && wget ${OPENVPN_URL}
     - name: get openvpn build env setup script
@@ -36,14 +36,14 @@ jobs:
 #    - name: zip compiled files
 #      run: cd $HOME/ && zip -r bin.zip ~/work/openvpn-windows-xor/generic/image-win64/openvpn/bin
     - name: Upload artifact - compiled 64bit bin files
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v2
       with:
         name: Compiled 64bit bin files
         path: /home/runner/work/openvpn-windows-xor/openvpn-windows-xor/generic/image-win64/openvpn/bin
     - name: build 32bit bin files from patched openvpn source
       run: cd ~/work/openvpn-windows-xor/openvpn-windows-xor/generic/ && IMAGEROOT=`pwd`/image-win32 CHOST=i686-w64-mingw32 CBUILD=x86_64-pc-linux-gnu ./build
     - name: Upload artifact - compiled 32bit bin files
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v2
       with:
         name: Compiled 32bit bin files
         path: /home/runner/work/openvpn-windows-xor/openvpn-windows-xor/generic/image-win32/openvpn/bin
@@ -52,7 +52,7 @@ jobs:
     - name: build windows installers
       run: cd ~/work/openvpn-windows-xor/openvpn-windows-xor/windows-nsis/ && mkdir output/ && ./build-complete --output-dir=./output
     - name: Upload artifact - Windows Installer file
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v2
       with:
         name: Windows Installer file
         path: /home/runner/work/openvpn-windows-xor/openvpn-windows-xor/windows-nsis/output
